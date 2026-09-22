@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💜 Guarda-Roupa Mágico — ARMY Style 💜</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Sacramento&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dream: {
+                            pink: '#FF7EB9',
+                            purple: '#B28DFF',
+                            blue: '#8DD5FF',
+                            dark: '#2B1E40',
+                            deeper: '#1A102B',
+                            bts: '#742DD9'
+                        }
+                    },
+                    fontFamily: {
+                        dreamy: ['Quicksand', 'sans-serif'],
+                        cursive: ['Sacramento', 'cursive']
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #1A102B 0%, #2B1E40 50%, #3D2B5C 100%);
+            background-attachment: fixed;
+            font-family: 'Quicksand', sans-serif;
+            overflow-x: hidden;
+        }
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .star {
+            position: absolute;
+            color: #fff;
+            animation: twinkle 3s infinite ease-in-out;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.3); }
+        }
+        .neon-glow {
+            text-shadow: 
+                0 0 5px #FF7EB9,
+                0 0 10px #B28DFF,
+                0 0 20px #742DD9,
+                0 0 30px #742DD9;
+        }
+        .neon-border {
+            box-shadow: 
+                0 0 5px #FF7EB9,
+                0 0 15px #B28DFF,
+                inset 0 0 5px rgba(116, 45, 217, 0.2);
+        }
+        .magic-card {
+            background: rgba(43, 30, 64, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(178, 141, 255, 0.3);
+            border-radius: 24px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .magic-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            border-color: #B28DFF;
+            box-shadow: 0 10px 40px rgba(116, 45, 217, 0.3);
+        }
+        .magic-btn {
+            background: linear-gradient(135deg, #742DD9, #B28DFF, #FF7EB9);
+            border-radius: 50px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .magic-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px #742DD9, 0 0 40px #B28DFF;
+        }
+        .float {
+            animation: float 4s infinite ease-in-out;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .pulse-glow {
+            animation: pulseGlow 2s infinite;
+        }
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 5px #742DD9; }
+            50% { box-shadow: 0 0 20px #B28DFF, 0 0 30px #FF7EB9; }
+        }
+        .dream-input {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(178, 141, 255, 0.3);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        .dream-input:focus {
+            border-color: #742DD9;
+            box-shadow: 0 0 15px rgba(116, 45, 217, 0.4);
+            outline: none;
+        }
+        .music-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #742DD9, #B28DFF);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .music-btn.playing {
+            animation: spin 3s linear infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="text-white min-h-screen font-dreamy">
+    <div class="stars" id="starsContainer"></div>
+
+    <div class="fixed top-4 right-4 z-50 flex items-center gap-2">
+        <button id="musicToggle" class="music-btn" title="Ligar/Desligar BTS 💜">
+            <i class="fa fa-music text-white text-lg"></i>
+        </button>
+        <span class="text-xs text-dream-purple hidden sm:inline">BTS 💜</span>
+    </div>
+
+    <audio id="bgMusic" loop preload="auto">
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" type="audio/mpeg">
+        Seu navegador não suporta áudio.
+    
+
+    <header class="relative z-10 pt-8 pb-6 text-center">
+        <h1 class="font-cursive text-5xl md:text-6xl mb-2 neon-glow">
+            💜 Guarda-Roupa Mágico — ARMY Style 💜
+        </h1>
+        <p class="text-dream-purple/80 text-lg">Seus cachos, seu estilo, com a magia do BTS ✨</p>
+        <div class="mt-4 flex justify-center gap-2 text-2xl float">
+            💜 🧚‍♀️ 🌸 ✨ 💇‍♀️ 👗 💫 ⁷
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 pb-20 relative z-10">
+        <nav class="mb-8">
+            <div class="flex flex-wrap justify-center gap-3">
+                <button data-tab="cadastro" class="tab-btn active px-5 py-3 rounded-full magic-btn text-white font-semibold">
+                    <i class="fa fa-plus-circle mr-1"></i> Criar Peça
+                </button>
+                <button data-tab="roupas" class="tab-btn px-5 py-3 rounded-full bg-white/10 hover:bg-white/20 transition-all">
+                    <i class="fa fa-shopping-bag mr-1"></i> Meu Acervo
+                </button>
+                <button data-tab="looks" class="tab-btn px-5 py-3 rounded-full bg-white/10 hover:bg-white/20 transition-all">
+                    <i class="fa fa-magic mr-1"></i> Tecer Look
+                </button>
+                <button data-tab="penteados" class="tab-btn px-5 py-3 rounded-full bg-white/10 hover:bg-white/20 transition-all">
+                    <i class="fa fa-leaf mr-1"></i> Cachos Mágicos
+                </button>
+                <button data-tab="plano" class="tab-btn px-5 py-3 rounded-full bg-white/10 hover:bg-white/20 transition-all">
+                    <i class="fa fa-calendar mr-1"></i> Magia Semanal
+                </button>
+            </div>
+        </nav>
+
+        <div class="magic-card p-6 md:p-8 neon-border">
+            <section id="cadastro" class="tab-content">
+                <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
+                    ✨ Criar Nova Peça Mágica
+                </h2>
+                <p class="text-gray-300 mb-6">Descreva sua peça e ela ganha vida aqui — sem fotos, só magia! 🧚‍♀️</p>
+                
+                <form id="formPeca" class="space-y-5">
+                    <div class="grid md:grid-cols-2 gap-5">
+                        <div>
+                            <label class="block font-medium mb-2 text-dream-purple">👗 Tipo de Peça</label>
+                            <select id="tipo" class="w-full p-3 rounded-xl dream-input">
+                                <option value="">Escolha...</option>
+                                <option value="Camiseta">👕 Camiseta Estelar</option>
+                                <option value="Blusa">👚 Blusa Encantada</option>
+                                <option value="Calça">👖 Calça Cósmica</option>
+                                <option value="Saia">✨ Saia Brilhante</option>
+                                <option value="Vestido">👗 Vestido Místico</option>
+                                <option value="Jaqueta">🧥 Jaqueta da Lua</option>
+                                <option value="Colete Curto">🎀 Colete Curto</option>
+                                <option value="Colete Longo">✨ Colete Longo</option>
+                                <option value="Lenço">🧣 Lenço (Pescoço)</option>
+                                <option value="Gravata">🎀 Gravata</option>
+                                <option value="Cinto">👑 Cinto</option>
+                                <option value="Tênis">👟 Tênis Voador</option>
+                                <option value="Acessório">💎 Outro Acessório</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block font-medium mb-2 text-dream-purple">🎨 Cor da Magia</label>
+                            <select id="cor" class="w-full p-3 rounded-xl dream-input">
+                                <option value="">Escolha...</option>
+                                <option value="Branco">☁️ Branco das Nuvens</option>
+                                <option value="Preto">🌌 Preto do Espaço</option>
+                                <option value="Rosa">🌸 Rosa do Pôr do Sol</option>
+                                <option value="Lilás">💜 Lilás da Aurora</option>
+                                <option value="Azul">🌊 Azul do Céu</option>
+                                <option value="Verde">🌿 Verde Floresta</option>
+                                <option value="Roxo BTS">💜 Roxo BTS 💜</option>
+                                <option value="Dourado">✨ Dourado Estelar</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block font-medium mb-2 text-dream-purple">✂️ Estilo/Detalhe</label>
+                            <select id="modelo" class="w-full p-3 rounded-xl dream-input">
+                                <option value="">Escolha...</option>
+                                <option value="Soltinha/Flutuante">☁️ Soltinha/Flutuante</option>
+                                <option value="Justa/Brilhante">✨ Justa/Brilhante</option>
+                                <option value="Gola V/Luz">💎 Gola V / Luz</option>
+                                <option value="Manga Longa/Noite">🌙 Manga Longa / Noite</option>
+                                <option value="Evasê/Asa">🦋 Evasê / Asa</option>
+                                <option value="Jeans/Estrela">💙 Jeans / Estrela</option>
+                                <option value="Listrado/Padrão">🎀 Listrado / Padrão</option>
+                                <option value="Liso/Clássico">✨ Liso / Clássico</option>
+                                <option value="Com fivela">👑 Com fivela/Detalhe</option>
+                                <option value="Nó elegante">🎀 Nó elegante</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block font-medium mb-2 text-dream-purple">🌟 Ocasião</label>
+                            <select id="ocasiao" class="w-full p-3 rounded-xl dream-input">
+                                <option value="">Escolha...</option>
+                                <option value="Casual/Dia a Dia">☀️ Dia a Dia</option>
+                                <option value="Escola">📚 Sabedoria</option>
+                                <option value="Igreja">⛪ Luz Divina</option>
+                                <option value="Festa/Show BTS">🎉 Festa / Show BTS 💜</option>
+                                <option value="Passeio">🌿 Aventura</option>
+                                <option value="Especial">✨ Ocasião Especial</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block font-medium mb-2 text-dream-purple">💫 Detalhes Mágicos (opcional)</label>
+                        <input type="text" id="detalhes" placeholder="Ex: lenço com estampa BTS, cinto com fivela brilhante, colete com botões..." 
+                            class="w-full p-3 rounded-xl dream-input">
+                    </div>
+                    <button type="submit" class="w-full magic-btn py-3 rounded-xl font-bold text-lg pulse-glow">
+                        ✨ Encantar Peça 💜
+                    </button>
+                </form>
+            </section>
+
+            <section id="roupas" class="tab-content hidden">
+                <h2 class="text-2xl font-bold mb-6">💎 Meu Acervo Encantado</h2>
+                <div id="listaPecas" class="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+                    <p class="col-span-full text-center text-gray-400 py-12">
+                        Ainda não tem peças mágicas... <br>Comece criando na aba "Criar Peça"! ✨
+                    </p>
+                </div>
+            </section>
+
+            <section id="looks" class="tab-content hidden">
+                <h2 class="text-2xl font-bold mb-6">🧚‍♀️ Tecer Meu Look Mágico</h2>
+                <p class="text-gray-300 mb-6">Escolha de cada grupo e veja a magia acontecer ✨</p>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-dream-purple font-medium mb-2">👆 Parte de Cima</label>
+                            <select id="lookCima" class="w-full p-3 rounded-xl dream-input">
+                                <option value="">-- Selecione --</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-dream-purple font-medium mb-2">👇 Parte de Baixo</label>
+                            <select id="lookBaixo" class="w-full p-3 rounded-xl dream-input">
+                                <option value="">-- Selecione --</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-dream-purple font-medium mb-2">✨ Sobrepor</label>
+                            <select id="lookSobrepor" class="w-full p-3 rounded-xl dream-input">
+                                <option value="">-- Nada --</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-dream-purple font-medium mb-2">👟 Calçado</label>
+                            <select id="lookCalcado" class="w-full p-3 rounded-xl dream-input">
+                                <option value="">-- Selecione --</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-dream-purple font-medium mb-2">🎀 Toque Final</label>
+                            <select id="lookAcessorio" class="w-full p-3 rounded-xl dream-input">
+                                <option value="">-- Nada --</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-dream-purple font-medium mb-2">👑 Cinto</label>
+                            <select id="lookCinto" class="w-full p-3 rounded-xl dream-input">
+                                <option value="">-- Nada --</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="btnMontar" class="mt-8 w-full magic-btn py-3 rounded-xl font-bold text-lg">
+                    ✨ Revelar Look Mágico 💜
+                </button>
+
+                <div id="resultadoLook" class="mt-8 p-6 rounded-2xl bg-white/5 border border-dream-purple/30 hidden">
+                    <h3 class="font-bold text-xl mb-4 neon-glow">🌟 Seu Look Revelado</h3>
+                    <div id="textoLook" class="space-y-3 text-lg"></div>
+                    <div id="sugestaoPenteado" class="mt-6 p-4 rounded-xl bg-dream-bts/20 border border-dream-purple/40"></div>
+                    <button id="btnSalvarLook" class="mt-4 px-6 py-2 rounded-full bg-dream-purple/30 hover:bg-dream-purple/50 transition-all">
+                        ⭐ Guardar na Estrela 💜
+                    </button>
+                </div>
+
+                <div class="mt-10">
+                    <h3 class="font-bold text-xl mb-4">⭐ Tesouros Guardados</h3>
+                    <div id="favoritos" class="space-y-4">
+                        <p class="text-gray-400 text-center py-4">Nenhum look guardado nas estrelas ainda 🌌</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="penteados" class="tab-content hidden">
+                <h2 class="text-2xl font-bold mb-6">💇‍♀️ Cachos Mágicos — Seus Fios Brilham 💜</h2>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="p-5 rounded-2xl bg-dream-pink/10 border border-dream-pink/20">
+                        <h3 class="font-bold text-lg mb-4 text-dream-pink">☀️ Luz do Dia</h3>
+                        <div class="bg-white/5 p-4 rounded-xl mb-4 hover:bg-white/10 transition-all">
+                            <h4 class="font-semibold text-dream-pink mb-2">🌸 Coroa de Lenço</h4>
+                            <p class="text-sm text-gray-300"><strong>Feitiço:</strong> Coloque o lenço na testa ou amarre no pescoço como detalhe. Deixe os cachos livres e brilhantes! ✨</p>
+                            <p class="text-xs text-gray-400 mt-2">✨ Combina com colete curto + camiseta — estilosa e prática!</p>
+                            <p class="text-xs text-dream-purple mt-1">💎 Acessório: lenço roxo BTS 💜 ou estampado</p>
+                        </div>
+                        <div class="bg-white/5 p-4 rounded-xl hover:bg-white/10 transition-all">
+                            <h4 class="font-semibold text-dream-pink mb-2">🦋 Asas Presas</h4>
+                            <p class="text-sm text-gray-300"><strong>Feitiço:</strong> Separe a parte de cima, prenda com presilhas. O resto dos fios voa livre! 💫</p>
+                            <p class="text-xs text-gray-400 mt-2">✨ Combina com gravata + blusa — elegante e delicada</p>
+                            <p class="text-xs text-dream-purple mt-1">💎 Acessório: presilhas com pérolas ou brilho</p>
+                        </div>
+                    </div>
+                    <div class="p-5 rounded-2xl bg-dream-purple/10 border border-dream-purple/20">
+                        <h3 class="font-bold text-lg mb-4 text-dream-purple">⛪ Luz & Brilho</h3>
+                        <div class="bg-white/5 p-4 rounded-xl mb-4 hover:bg-white/10 transition-all">
+                            <h4 class="font-semibold text-dream-purple mb-2">✨ Coque das Estrelas</h4>
+                            <p class="text-sm text-gray-300"><strong>Feitiço:</strong> Rabo baixo → torça → prenda. Solte fios na frente! 🌟</p>
+                            <p class="text-xs text-gray-400 mt-2">✨ Combina com colete longo + cinto fino — elegância total</p>
+                            <p class="text-xs text-dream-pink mt-1">💎 Toque: brincos que brilham com a luz</p>
+                        </div>
+                        <div class="bg-white/5 p-4 rounded-xl hover:bg-white/10 transition-all">
+                            <h4 class="font-semibold text-dream-purple mb-2">🌙 Trança Lunar</h4>
+                            <p class="text-sm text-gray-300"><strong>Feitiço:</strong> Trança de um lado só, deixe o resto cair em cachos definidos! 🌙</p>
+                            <p class="text-xs text-gray-400 mt-2">✨ Combina com lenço no pescoço — charme e estilo 💜</p>
+                            <p class="text-xs text-dream-pink mt-1">💎 Toque: flor natural ou tiara fina</p>
+                        </div>
+                    </div>
+                    <div class="p-5 rounded-2xl bg-gradient-to-r from-dream-bts/20 to-dream-pink/20 border border-dream-purple/20 md:col-span-2">
+                        <h3 class="font-bold text-lg mb-4 text-center text-dream-bts">🎉 Vibração ARMY 💜✨</h3>
+                        <div class="bg-white/5 p-4 rounded-xl hover:bg-white/10 transition-all">
+                            <h4 class="font-semibold text-center text-dream-purple mb-2">✨ Radiante do Palco</h4>
+                            <p class="text-sm text-gray-300 text-center"><strong>Feitiço:</strong> Prenda só a parte de trás, deixe volume. Passe óleo brilhante nos fios — você brilha mais que as luzes! 💫</p>
+                            <p class="text-xs text-center text-gray-400 mt-2">✨ Look perfeito: blusa + colete curto + cinto marcante + lenço no pescoço = ARMY estilosa 💜</p>
+                            <p class="text-xs text-center text-dream-pink mt-1">💜 Segredo: nunca escove os cachos secos — penteie só úmidos com creme! Seus fios agradecem 💜</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="plano" class="tab-content hidden">
+                <h2 class="text-2xl font-bold mb-6">📅 Magia Semanal — Planeje Seu Brilho 💜</h2>
+                <div class="space-y-4">
+                    <div class="grid grid-cols-12 gap-3 items-center p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-all">
+                        <span class="col-span-2 font-medium text-dream-pink">☀️ Seg</span>
+                        <input type="text" id="segunda" placeholder="Seu brilho do dia..." class="col-span-10 p-2 rounded-lg dream-input">
+                    </div>
+                    <div class="grid grid-cols-12 gap-3 items-center p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-all">
+                        <span class="col-span-2 font-medium text-dream-purple">🌙 Ter</span>
+                        <input type="text" id="terca" placeholder="Seu brilho do dia..." class="col-span-10 p-2 rounded-lg dream-input">
+                    </div>
+                    <div class="grid grid-cols-12 gap-3 items-center p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-all">
+                        <span class="col-span-2 font-medium text-dream-blue">☁️ Qua</span>
+                        <input type="text" id="quarta" placeholder="Seu brilho do dia..." class="col-span-10 p-2 rounded-lg dream-input">
+                    </div>
+                    <div class="grid grid-cols-12 gap-3 items-center p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-all">
+                        <span class="col-span-2 font-medium text-dream-pink">🌸 Qui</span>
+                        <input type="text" id="quinta" placeholder="Seu brilho do dia..." class="col-span-10 p-2 rounded-lg dream-input">
+                    </div>
+                    <div class="grid grid-cols-12 gap-3 items-center p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-all">
+                        <span class="col-span-2 font-medium text-dream-purple">✨ Sex</span>
+                        <input type="text" id="sexta" placeholder="Seu brilho do dia..." class="col-span-10 p-2 rounded-lg dream-input">
+                    </div>
+                    <div class="grid grid-cols-12 gap-3 items-center p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-all">
+                        <span class="col-span-2 font-medium text-dream-pink">🎉 Sáb</span>
+                        <input type="text" id="sabado" placeholder="Seu brilho do dia..." class="col-span-10 p-2 rounded-lg dream-input">
+                    </div>
+                    <div class="grid grid-cols-12 gap-3 items-center p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-all">
+                        <span class="col-span-2 font-medium text-dream-purple">💜 Dom</span>
+                        <input type="text" id="domingo" placeholder="Seu brilho do dia..." class="col-span-10 p-2 rounded-lg dream-input">
+                    </div>
+                </div>
+                <button id="btnSalvarPlano" class="mt-8 w-full magic-btn py-3 rounded-xl font-bold">
+                    💾 Guardar Plano nas Estrelas ✨
+                </button>
+                <p id="msgPlanoSalvo" class="mt-4 text-center text-dream-purple hidden">✅ Plano guardado! As estrelas lembram 💜</p>
+            </section>
+        </div>
+    </main>
+
+    <footer class="text-center py-8 text-gray-400 text-sm relative z-10">
+        <p class="font-cursive text-xl">💜 Feito com amor e magia — você é linda do jeito que é 💜 Cachos, estilo e BTS sempre no coração ✨⁷</p>
+    </footer>
+
+    <script>
+        const starsContainer = document.getElementById('starsContainer');
+        for(let i = 0; i < 60; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.innerHTML = ['✦','✧','★','⋆','💜'][Math.floor(Math.random()*5)];
+            star.style.left = Math.random()*100 + '%';
+            star.style.top = Math.random()*100 + '%';
+            star.style.fontSize = (Math.random()*12 + 6) + 'px';
+            star.style.animationDelay = Math.random()*3 + 's';
+            starsContainer.appendChild(star);
+        }
+
+        const musicToggle = document.getElementById('musicToggle');
+        const bgMusic = document.getElementById('bgMusic');
+        let musicaTocando = false;
+        musicToggle.addEventListener('click', () => {
+            if(musicaTocando) {
+                bgMusic.pause();
+                musicToggle.classList.remove('playing');
+                musicToggle.innerHTML = '<i class="fa fa-music text-white text-lg"></i>';
+            } else {
+                bgMusic.volume = 0.15;
+                bgMusic.play().catch(e => console.log('💜 Clique para ouvir a magia do BTS 🎵'));
+                musicToggle.classList.add('playing');
+                musicToggle.innerHTML = '<i class="fa fa-pause text-white text-lg"></i>';
+            }
+            musicaTocando = !musicaTocando;
+        });
+
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => {
+                    b.classList.remove('active', 'magic-btn', 'text-white', 'pulse-glow');
+                    b.classList.add('bg-white/10', 'hover:bg-white/20');
+                });
+                btn.classList.add('active', 'magic-btn', 'text-white', 'pulse-glow');
+                btn.classList.remove('bg-white/10', 'hover:bg-white/20');
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+                document.getElementById(btn.dataset.tab).classList.remove('hidden');
+                if(btn.dataset.tab === 'roupas') mostrarPecas();
+                if(btn.dataset.tab === 'looks') carregarOpcoesLooks();
+                if(btn.dataset.tab === 'plano') carregarPlano();
+            });
+        });
+
+        let pecas = JSON.parse(localStorage.getItem('pecasMagicas')) || [];
+        let favoritos = JSON.parse(localStorage.getItem('favoritosMagicos')) || [];
+        function salvarPecas() { localStorage.setItem('pecasMagicas', JSON.stringify(pecas)); }
+        function salvarFavoritos() { localStorage.setItem('favoritosMagicos', JSON.stringify(favoritos)); }
+
+        document.getElementById('formPeca').addEventListener('submit', e => {
+            e.preventDefault();
+            const nova = {
+                id: Date.now(),
+                tipo: document.getElementById('tipo').value,
+                cor: document.getElementById('cor').value,
+                modelo: document.getElementById('modelo').value,
+                ocasiao: document.getElementById('ocasiao').value,
+                detalhes: document.getElementById('detalhes').value || 'Sem detalhes'
+            };
+            if(!nova.tipo || !nova.cor || !nova.modelo) {
+                alert('💜 Preencha Tipo, Cor e Estilo por favor! ✨');
+                return;
+            }
+            pecas.push(nova);
+            salvarPecas();
+            alert('🧚‍♀️ Peça encantada com sucesso! 💜');
+            e.target.reset();
+        });
+
+        function mostrarPecas() {
+            const lista = document.getElementById('listaPecas');
+            if(pecas.length === 0) {
+                lista.innerHTML = `<p class="col-span-full text-center text-gray-400 py-12">Ainda não tem peças mágicas... <br>Crie na aba "Criar Peça"! ✨</p>`;
+                return;
+            }
+            lista.innerHTML = '';
+            pecas.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'magic-card p-4 hover:scale-105 transition-transform';
+                card.innerHTML = `
+                    <h4 class="font-bold text-dream-purple">${p.tipo}</h4>
+                    <p class="text-sm mt-1"><strong>Cor:</strong> ${p.cor}</p>
+                    <p class="text-sm"><strong>Estilo:</strong> ${p.modelo}</p>
+                    <p class="text-sm"><strong>Ocasião:</strong> ${p.ocasiao}</p>
+                    <p class="text-xs text-gray-400 mt-1 italic">${p.detalhes}</p>
+                    <button class="mt-3 text-red-300 text-sm hover:text-red-200" onclick="removerPeca(${p.id})">
+                        <i class="fa fa-trash"></i> Desencantar
+                    </button>
+                `;
+                lista.appendChild(card);
+            });
+        }
+
+        window.removerPeca = function(id) {
+            if(confirm('Tem certeza que deseja desencantar? 💜')) {
+                pecas = pecas.filter(p => p.id !== id);
+                salvarPecas();
+                mostrarPecas();
+            }
+        };
+
+        function carregarOpcoesLooks() {
+            const cima = document.getElementById('lookCima');
+            const baixo = document.getElementById('lookBaixo');
+            const sobrepor = document.getElementById('lookSobrepor');
+            const calcado = document.getElementById('lookCalcado');
+            const acessorio = document.getElementById('lookAcessorio');
+            const cinto = document.getElementById('lookCinto');
+            [cima, baixo, sobrepor, calcado, acessorio, cinto].forEach(s => {
+                s.innerHTML = s.id === 'lookCima' || s.id === 'lookBaixo' 
+                    ? '<option value="">-- Selecione --</option>' 
+                    : '<option value="">-- Nada --</option>';
+            });
+            pecas.forEach(p => {
+                const texto = `${p.tipo} • ${p.cor} • ${p.modelo}`;
+                const opt = `<option value="${p.id}">${texto}</option>`;
+                if(['Camiseta','Blusa','Camisa','Jaqueta'].includes(p.tipo)) cima.innerHTML += opt;
+                else if(['Calça','Shorts','Saia','Vestido'].includes(p.tipo)) baixo.innerHTML += opt;
+                else if(['Colete Curto','Colete Longo','Jaqueta'].includes(p.tipo)) sobrepor.innerHTML += opt;
+                else if(['Tênis','Sandália'].includes(p.tipo)) calcado.innerHTML += opt;
+                else if(['Lenço','Gravata','Acessório'].includes(p.tipo)) acessorio.innerHTML += opt;
+                else if(['Cinto'].includes(p.tipo)) cinto.innerHTML += opt;
+            });
+            carregarFavoritos();
+        }
+
+        document.getElementById('btnMontar').addEventListener('click', () => {
+            const pc = pecas.find(p => p.id == document.getElementById('lookCima').value);
+            const pb = pecas.find(p => p.id == document.getElementById('lookBaixo').value);
+            const ps = pecas.find(p => p.id == document.getElementById('lookSobrepor').value);
+            const pcal = pecas.find(p => p.id == document.getElementById('lookCalcado').value);
+            const pac = pecas.find(p => p.id == document.getElementById('lookAcessorio').value);
+            const pci = pecas.find(p => p.id == document.getElementById('lookCinto').value);
+
+            if(!pc && !pb) {
+                alert('💜 Escolha pelo menos uma peça! ✨');
+                return;
+            }
+
+            const res = document.getElementById('resultadoLook');
+            res.classList.remove('hidden');
+
+            let html = '';
+            if(pc) html += `<p>👆 <strong>Cima:</strong> ${pc.tipo} — ${pc.cor}, ${pc.modelo}</p>`;
+            if(ps) html += `<p>✨ <strong>Sobrepor:</strong> ${ps.tipo} — ${ps.cor}, ${ps.modelo}</p>`;
+            if(pb) html += `<p>👇 <strong>Baixo:</strong> ${pb.tipo} — ${pb.cor}, ${pb.modelo}</p>`;
+            if(pci) html += `<p>👑 <strong>Cinto:</strong> ${pci.tipo} — ${pci.cor}, ${pci.modelo}</p>`;
+            if(pcal) html += `<p>👟 <strong>Calçado:</strong> ${pcal.tipo} — ${pcal.cor}</p>`;
+            if(pac) html += `<p>🎀 <strong>Toque Final:</strong> ${pac.tipo} — ${pac.cor}, ${pac.modelo}</p>`;
+
+            document.getElementById('textoLook').innerHTML = html;
+
+            const oc = (pc?.ocasiao || pb?.ocasiao || 'Casual/Dia a Dia');
+            let penteado = '🌸 <strong>Sugestão Mágica:</strong> Coroa de lenço no pescoço ou na testa + cachos soltos com brilho natural! Simples e encantadora 💜✨';
+            if(oc === 'Festa/Show BTS' || oc === 'Especial') {
+                penteado = '💜 <strong>Sugestão Mágica — Estilo ARMY:</strong> Radiante do Palco! Semipreso com volume, óleo brilhante nos fios. Lenço no pescoço + colete = perfeição 💜✨';
+            } else if(oc === 'Igreja') {
+                penteado = '✨ <strong>Sugestão Mágica:</strong> Coque das Estrelas ou Trança Lunar com gravata/lenço delicado. Elegante e radiante! 💫';
+            } else if(oc === 'Escola' || oc === 'Casual/Dia a Dia') {
+                penteado = '☀️ <strong>Sugestão Mágica:</strong> Asas Presas ou lenço combinando com o colete — prática, rápida e linda! 🎀';
+            }
+            document.getElementById('sugestaoPenteado').innerHTML = penteado;
+        });
+
+        document.getElementById('btnSalvarLook').addEventListener('click', () => {
+            const texto = document.getElementById('textoLook').innerText;
+            const penteado = document.getElementById('sugestaoPenteado').innerHTML;
+            favoritos.push({texto, penteado, data: new Date().toLocaleDateString('pt-BR')});
+            salvarFavoritos();
+            carregarFavoritos();
+            alert('⭐ Guardado nas estrelas! 💜');
+        });
+
+        function carregarFavoritos() {
+            const container = document.getElementById('favoritos');
+            if(favoritos.length === 0) {
+                container.innerHTML = '<p class="text-gray-400 text-center py-4">Nenhum look guardado nas estrelas ainda 🌌</p>';
+                return;
+            }
+            container.innerHTML = '';
+            favoritos.forEach((f, i) => {
+                const div = document.createElement('div');
+                div.className = 'magic-card p-4';
+                div.innerHTML = `
+                    <p class="text-xs text-gray-400">${f.data}</p>
+                    <p class="whitespace-pre-line">${f.texto}</p>
+                    <p class="text-sm text-dream-purple mt-2">${f.penteado}</p>
+                    <button class="text-red-300 text-xs mt-2" onclick="removerFavorito(${i})">Desguardar</button>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        window.removerFavorito = function(i) {
+            if(confirm('Tem certeza? 💜')) {
+                favoritos.splice(i, 1);
+                salvarFavoritos();
+                carregarFavoritos();
+            }
+        };
+
+        function carregarPlano() {
+            const plano = JSON.parse(localStorage.getItem('planoMagico')) || {};
+            ['segunda','terca','quarta','quinta','sexta','sabado','domingo'].forEach(d => {
+                document.getElementById(d).value = plano[d] || '';
+            });
+        }
+
+        document.getElementById('btnSalvarPlano').addEventListener('click', () => {
+            const plano = {};
+            ['segunda','terca','quarta','quinta','sexta','sabado','domingo'].forEach(d => {
+                plano[d] = document.getElementById(d).value;
+            });
+            localStorage.setItem('planoMagico', JSON.stringify(plano));
+            const msg = document.getElementById('msgPlanoSalvo');
+            msg.classList.remove('hidden');
+            setTimeout(() => msg.classList.add('hidden'), 3000);
+        });
+    </script>
+</body>
+</html>
